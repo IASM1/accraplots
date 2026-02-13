@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:'Inter',sans-serif;
@@ -21,99 +17,122 @@ body{
   overflow-x:hidden;
 }
 
-/* 4K Real Estate Background */
+/* Background */
 body::before{
   content:"";
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:
-  linear-gradient(rgba(5,5,10,.85),rgba(5,5,10,.9)),
+  linear-gradient(rgba(5,5,10,.75),rgba(5,5,10,.85)),
   url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80");
   background-size:cover;
   background-position:center;
   z-index:-2;
 }
 
-/* Particles Layer */
+/* Particles */
 #particles-js{
   position:fixed;
-  width:100%;
-  height:100%;
+  inset:0;
   z-index:-1;
+  pointer-events:none;
 }
 
+/* Header */
 header{
   text-align:center;
-  padding:120px 20px 60px;
+  padding:clamp(80px,12vw,120px) 20px 40px;
 }
 
 h1{
   font-family:'Playfair Display',serif;
-  font-size:56px;
-  letter-spacing:2px;
-  margin-bottom:20px;
+  font-size:clamp(34px,8vw,56px);
+  margin-bottom:18px;
+  line-height:1.2;
 }
 
+/* Gold shimmer */
 .gold{
-  background:linear-gradient(90deg,#9e7c3a,#c9a45c,#f0d28a);
+  background:linear-gradient(90deg,#9e7c3a,#f0d28a,#c9a45c,#9e7c3a);
+  background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  animation:shimmer 6s linear infinite;
+}
+
+@keyframes shimmer{
+  to{background-position:200% center;}
 }
 
 .sub{
-  font-size:18px;
+  font-size:clamp(15px,4vw,18px);
   color:#ccc;
   max-width:700px;
   margin:auto;
   line-height:1.6;
+  padding:0 10px;
 }
 
+/* Sections */
 section{
-  padding:80px 20px;
+  padding:clamp(60px,10vw,80px) 20px;
   text-align:center;
 }
 
+/* Fade Animation */
+.fade-up{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all .9s cubic-bezier(.23,1,.32,1);
+}
+.fade-up.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* Domain Card */
 .domain-card{
   max-width:600px;
   margin:auto;
   background:rgba(20,20,25,.85);
-  border:1px solid rgba(201,164,92,.3);
+  border:1px solid rgba(201,164,92,.35);
   border-radius:20px;
-  padding:50px 30px;
+  padding:clamp(30px,6vw,50px) 25px;
   backdrop-filter:blur(8px);
   box-shadow:0 0 40px rgba(201,164,92,.08);
   transition:.3s;
 }
 
 .domain-card:hover{
-  transform:translateY(-8px);
+  transform:translateY(-6px);
   box-shadow:0 0 60px rgba(201,164,92,.2);
 }
 
 .price{
-  font-size:42px;
-  margin-bottom:20px;
+  font-size:clamp(28px,7vw,42px);
+  margin-bottom:16px;
 }
 
 .domain-name{
-  font-size:32px;
-  margin-bottom:20px;
+  font-size:clamp(22px,6vw,32px);
+  margin-bottom:16px;
   font-weight:600;
 }
 
 .desc{
   color:#bbb;
-  margin-bottom:40px;
+  margin-bottom:30px;
   line-height:1.6;
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
+/* Buttons */
 .buttons{
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:16px;
   flex-wrap:wrap;
 }
 
@@ -123,32 +142,72 @@ section{
   text-decoration:none;
   font-weight:600;
   transition:.3s;
+  display:inline-block;
+  min-width:200px;
 }
 
 .buy{
   background:linear-gradient(90deg,#9e7c3a,#c9a45c);
   color:#000;
+  box-shadow:0 8px 30px rgba(201,164,92,.25);
 }
-
-.buy:hover{
-  transform:scale(1.05);
-}
+.buy:hover{transform:scale(1.05)}
 
 .inquire{
   border:1px solid #c9a45c;
   color:#c9a45c;
 }
-
 .inquire:hover{
   background:#c9a45c;
   color:#000;
 }
 
+/* Footer */
 footer{
   text-align:center;
-  padding:60px 20px;
-  font-size:14px;
+  padding:50px 20px;
+  font-size:13px;
   color:#777;
+}
+
+/* Mobile Buy Bar */
+.mobile-buy-bar{display:none;}
+
+@media (max-width:768px){
+  .buttons{flex-direction:column}
+  .btn{width:100%}
+
+  .mobile-buy-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:rgba(15,15,20,.95);
+    backdrop-filter:blur(8px);
+    border-top:1px solid rgba(201,164,92,.4);
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:999;
+  }
+
+  .mobile-buy-bar a{
+    background:linear-gradient(90deg,#9e7c3a,#c9a45c);
+    color:#000;
+    padding:10px 20px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+  }
+
+  .mobile-price{
+    font-weight:600;
+    font-size:18px;
+    color:#c9a45c;
+  }
+
+  body{padding-bottom:80px;}
 }
 </style>
 </head>
@@ -157,7 +216,7 @@ footer{
 
 <div id="particles-js"></div>
 
-<header>
+<header class="fade-up">
   <h1 class="gold">AccraPlots.com</h1>
   <p class="sub">
     A category-defining digital real estate asset positioned for Ghana’s growing property market.
@@ -165,16 +224,21 @@ footer{
   </p>
 </header>
 
-<section>
-  <div class="domain-card">
+<section class="fade-up">
+  <div class="domain-card fade-up">
     <div class="price gold">$2,499</div>
-    <div class="domain-name">Buy Now</div>
+    <div class="domain-name">Acquire This Asset</div>
     <div class="desc">
-      Ideal for land listings, real estate platforms, brokerage branding, or institutional property ventures in Accra.
+      Ideal for land listings, real estate platforms, brokerage branding,
+      or institutional property ventures in Accra.
     </div>
     <div class="buttons">
-      <a href="https://www.afternic.com/forsale/accraplots.com" target="_blank" class="btn buy">Secure via Afternic</a>
-      <a href="https://t.me/DREAfrica_Landlord?text=Hello%20I%20am%20interested%20in%20AccraPlots.com" target="_blank" class="btn inquire">Inquire on Telegram</a>
+      <a href="https://www.afternic.com/forsale/accraplots.com" target="_blank" class="btn buy">
+        Secure via Afternic
+      </a>
+      <a href="https://t.me/DREAfrica_Landlord?text=Hello%20I%20am%20interested%20in%20AccraPlots.com" target="_blank" class="btn inquire">
+        Inquire on Telegram
+      </a>
     </div>
   </div>
 </section>
@@ -183,13 +247,21 @@ footer{
   © 2026 DREAfrica | Premium Digital Real Estate Holdings
 </footer>
 
-<!-- Particles Script -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<!-- Mobile Sticky Bar -->
+<div class="mobile-buy-bar">
+  <div class="mobile-price">$2,499</div>
+  <a href="https://www.afternic.com/forsale/accraplots.com" target="_blank">
+    Secure Now
+  </a>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
 particlesJS("particles-js",{
   particles:{
-    number:{value:75},
+    number:{value: window.innerWidth < 768 ? 35 : 75},
     color:{value:["#9e7c3a","#c9a45c","#f0d28a"]},
     shape:{type:"circle"},
     opacity:{value:.25,random:true},
@@ -204,25 +276,27 @@ particlesJS("particles-js",{
     move:{
       enable:true,
       speed:.8,
-      direction:"none",
       random:true,
-      straight:false,
-      out_mode:"out",
-      bounce:false
+      out_mode:"out"
     }
   },
   interactivity:{
-    detect_on:"canvas",
-    events:{
-      onhover:{enable:true,mode:"grab"},
-      onclick:{enable:false}
-    },
-    modes:{
-      grab:{distance:200,line_linked:{opacity:.4}}
-    }
+    events:{onhover:{enable:true,mode:"grab"}},
+    modes:{grab:{distance:200,line_linked:{opacity:.4}}}
   },
   retina_detect:true
 });
+
+/* Fade-in scroll */
+const faders=document.querySelectorAll('.fade-up');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.2});
+faders.forEach(el=>observer.observe(el));
 </script>
 
 </body>
